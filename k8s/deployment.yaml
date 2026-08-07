@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-cicd-python-app
+  labels:
+    app: eks-cicd-python-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eks-cicd-python-app
+  template:
+    metadata:
+      labels:
+        app: eks-cicd-python-app
+    spec:
+      containers:
+        - name: eks-cicd-python-app
+          image: 690640933199.dkr.ecr.ap-south-1.amazonaws.com/eks-cicd-python-app:v1
+          ports:
+            - containerPort: 5000
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
