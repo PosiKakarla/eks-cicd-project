@@ -35,7 +35,7 @@ resource "aws_iam_role" "github_actions" {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:PosiKakarla/eks-cicd-project:ref:refs/heads/main"
+            "token.actions.githubusercontent.com:sub" = "repo:PosiKakarla@174693179/eks-cicd-project@1324791923:ref:refs/heads/main"
           }
         }
       }
