@@ -68,3 +68,19 @@ resource "aws_eks_access_policy_association" "github_actions_edit" {
     type = "cluster"
   }
 }
+
+resource "aws_iam_role_policy" "github_actions_eks_describe" {
+  name = "eks-describe-cluster"
+  role = aws_iam_role.github_actions.name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = "eks:DescribeCluster"
+        Resource = aws_eks_cluster.this.arn
+      }
+    ]
+  })
+}
